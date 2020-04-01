@@ -1,3 +1,4 @@
+import csv
 import sys
 import time
 
@@ -12,18 +13,22 @@ def save_log(filename: str, interface: str):
     points = Cell.all(interface)
     _time = time.time()
 
-    try:
-        f = open(filename, "a")
-        for point in points:
-            ssid = point.ssid
-            addr = point.address
-            signal = point.signal
-            is_encrypted = point.encrypted
-            f.write(f"{ssid},{addr},{signal},{is_encrypted},{_time}")
-            print(f"{ssid},{addr},{signal},{is_encrypted},{_time}")
-        print("\n")
-    except Exception:
-        print("error")
+    csv_file = open(filename, "a")
+    for point in points:
+        ssid = point.ssid
+        bssid = point.address
+        signal = point.signal
+        is_encrypted = point.encrypted
+
+        row = [ssid, bssid, signal, is_encrypted, _time]
+
+        writer = csv.writer(csv_file)
+        writer.writerow(row)
+
+        print(', '.join(str(v) for v in row))
+    print("\n")
+
+    csv_file.close()
 
 
 def main():

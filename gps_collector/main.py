@@ -1,6 +1,8 @@
-import time
-import termux_api
+import csv
 import sys
+import time
+
+import termux_api
 
 DEFAULT_FILENAME = "gps.csv"
 DEFAULT_DELAY = 0
@@ -12,12 +14,17 @@ def save_log(filename):
     longitude = location["longitude"]
     accuracy = location["accuracy"]
     _time = time.time()
-    try:
-        f = open(filename, "a")
-        f.write(f"{latitude},{longitude},{accuracy},{_time}")
-        print(f"{latitude},{longitude},{accuracy},{_time}")
-    except Exception:
-        print("error")
+
+    csv_file = open(filename, "a")
+
+    row = [latitude, longitude, accuracy, _time]
+
+    writer = csv.writer(csv_file)
+    writer.writerow(row)
+
+    print(', '.join(str(v) for v in row))
+
+    csv_file.close()
 
 
 def main():
