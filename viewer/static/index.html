@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>map viewer</title>
+
+    <!-- Leaflet -->
+    <link crossorigin="" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          rel="stylesheet"/>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script crossorigin=""
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+
+    <!-- my scripts/styles -->
+    <link href="style/main.css" rel="stylesheet">
+    <script src="lib/papaparse.min.js"></script>
+</head>
+
+<body>
+<!-- map container -->
+<div id="map"></div>
+
+<script>
+        // init map
+        var map = new L.Map('map', {
+            fullscreenControl: true,
+        }).setView([0, 0], 0);
+
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: ''
+        }).addTo(map);
+
+        //parse map file 
+        Papa.parse("/map", {
+            download: true,
+            complete: function (results) {
+                for (let i = 0; i < results.data.length; i++) {
+                    point = results.data[i]
+
+                    popup_html = "name: " + point[0]
+                        + "<br>ssid: " + point[1]
+                        + "<br>auth: " + point[2];
+
+                    L.marker([results.data[i][3], results.data[i][4]]).addTo(map)
+                        .bindPopup(popup_html);
+                }
+            }
+        });
+
+
+</script>
+</body>
+
+</html>
