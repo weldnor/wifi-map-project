@@ -31,13 +31,13 @@ def main():
     interface = DEFAULT_INTERFACE
     delay = DEFAULT_DELAY
 
-    if len(sys.argv) == 2:
+    if len(sys.argv) >= 2:
         filename = sys.argv[1]
 
-    if len(sys.argv) == 3:
+    if len(sys.argv) >= 3:
         delay = int(sys.argv[2])
 
-    if len(sys.argv) == 4:
+    if len(sys.argv) >= 4:
         interface = sys.argv[3]
 
     print(f"filename: {filename}")

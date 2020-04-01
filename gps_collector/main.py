@@ -24,10 +24,10 @@ def main():
     filename = DEFAULT_FILENAME
     delay = DEFAULT_DELAY
 
-    if len(sys.argv) == 2:
+    if len(sys.argv) >= 2:
         filename = sys.argv[1]
 
-    if len(sys.argv) == 3:
+    if len(sys.argv) >= 3:
         delay = int(sys.argv[2])
 
     print(f"filename: {filename}")
