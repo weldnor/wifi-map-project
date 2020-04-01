@@ -3,13 +3,17 @@ import time
 
 from wifi import Cell
 
+DEFAULT_FILENAME = "wifi.csv"
+DEFAULT_INTERFACE = "wlan0"
+DEFAULT_DELAY = 1
 
-def save_log(filename, interface):
+
+def save_log(filename: str, interface: str):
     points = Cell.all(interface)
     _time = time.time()
 
-    f = open(filename, "a")
     try:
+        f = open(filename, "a")
         for point in points:
             ssid = point.ssid
             addr = point.address
@@ -23,9 +27,9 @@ def save_log(filename, interface):
 
 
 def main():
-    filename = "wifi.csv"
-    interface = 'wlan0'
-    delay: int = 1
+    filename = DEFAULT_FILENAME
+    interface = DEFAULT_INTERFACE
+    delay = DEFAULT_DELAY
 
     if len(sys.argv) == 2:
         filename = sys.argv[1]
