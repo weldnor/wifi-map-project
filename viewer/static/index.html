@@ -27,9 +27,7 @@
 
 <script>
         // init map
-        var map = new L.Map('map', {
-            fullscreenControl: true,
-        }).setView([0, 0], 0);
+        var map = new L.Map('map').setView([0, 0], 0);
 
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -44,8 +42,8 @@
                     point = results.data[i]
 
                     popup_html = "name: " + point[0]
-                        + "<br>ssid: " + point[1]
-                        + "<br>auth: " + point[2];
+                        + "<br>bssid: " + point[1]
+                        + "<br>is_encrypted: " + point[2];
 
                     L.marker([results.data[i][3], results.data[i][4]]).addTo(map)
                         .bindPopup(popup_html);

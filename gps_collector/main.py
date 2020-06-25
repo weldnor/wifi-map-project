@@ -42,7 +42,10 @@ def main():
 
     print("start scanning...\n")
     while True:
-        save_log(filename)
+        try:
+            save_log(filename)
+        except:
+            print("Can't get position. Maybe gps don't work.")
         time.sleep(delay)
 
 
