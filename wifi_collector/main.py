@@ -20,6 +20,9 @@ def save_log(filename: str, interface: str):
         signal = point.signal
         is_encrypted = point.encrypted
 
+        if ssid == '':
+            continue
+
         row = [ssid, bssid, signal, is_encrypted, _time]
 
         writer = csv.writer(csv_file)
